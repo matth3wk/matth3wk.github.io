@@ -46,9 +46,9 @@
     <div class="gallery">
 
         <div class="screen">
-            <h2>_ Class</h2>
+            <h2>Screen</h2>
             <img src="screen.png" alt="">
-            <p>Handles: </p>
+            <p></p>
         </div>
         </div>
       <h1>UML</h1>
@@ -85,6 +85,102 @@ MenuScreen <--> SettingsScreen : Changes to
 GameScreen *-- HUD
 GameScreen *-- Map
 GameScreen *-- Events
+</p>
+    <p>@startuml
+Abstract class AbstractScreen {
+    isActive : Boolean
+    
+    loadScreen()
+    clear()
+}
+
+Abstract class PopUp {
+    isActive : Boolean
+    score : Integer
+    
+    loadScreen()
+    clear()
+    getScore()
+    toMenu()
+}
+
+class GameScreen {
+    score : Integer
+    timeLeft : Integer
+    
+    interact()
+}
+
+class MenuScreen {
+    gameName : String
+    
+    toGame()
+    toSettings()
+}
+
+class SettingsScreen {
+    volume : Integer
+    
+    volumeUp()
+    volumeDown()
+    toMenu()
+}
+
+class PauseScreen {
+    timeLeft : Integer
+    
+    getTime()
+}
+
+class EndScreen {
+    endWin()
+    endLose()
+}
+
+class HUD {
+    items : Object[]
+    
+    showScore()
+    showItems()
+    getItem()
+    dropItem()
+}
+
+class Map {
+    loadMaze()
+}
+
+class Events {
+    eventCount : integer
+    
+    loadPosEvent()
+    loadNegEvent()
+    loadHidEvent()
+}
+
+AbstractScreen <|-- MenuScreen
+AbstractScreen <|-- GameScreen
+AbstractScreen <|-- SettingsScreen
+
+PopUp <|-- EndScreen
+PopUp <|-- PauseScreen
+
+
+PauseScreen ..> GameScreen : popup >
+EndScreen ..> GameScreen : popup >
+
+MenuScreen <--> GameScreen :  Changes to 
+MenuScreen <--> SettingsScreen : Changes to
+
+GameScreen *-- HUD
+GameScreen *-- Map
+GameScreen *-- Events
+
+@enduml
+
+
+
+@startuml
 </p>
 
     <script src="./script.js"></script>  

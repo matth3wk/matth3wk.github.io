@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>Team 9 - Class Diagrams & UML</title>
+    <link rel="stylesheet" href="./style.css"/>
+
+    <style>
+        body {
+            padding: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap; /* Allows images to wrap to the next line on small screens */
+            gap: 20px; /* Adds space between the cards */
+            justify-content: center; /* Centers the cards */
+            padding-top: 20px;
+        }
+        .crc-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+            width: 300px; /* Each card will be 300px wide */
+        }
+        .crc-card img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #eee;
+        }
+        .back-link {
+            font-size: 1.1em;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">&larr; Back to Team 9 Home</a>
+
+    <h1>Class Diagrams</h1>
+    <p>Here are the Class Diagrams for our project.</p>
+
+    <div class="gallery">
+
+        <div class="screen">
+            <h2>_ Class</h2>
+            <img src="screen.png" alt="">
+            <p>Handles: </p>
+        </div>
+        </div>
+      <h1>UML</h1>
+    <p>Here is the UML for our project.
+Abstract class AbstractScreen
+Abstract class PopUp
+
+class GameScreen
+class MenuScreen
+class SettingsScreen
+
+class PauseScreen
+class EndScreen
+
+class HUD
+class Map
+
+class Events
+
+AbstractScreen <|-- MenuScreen
+AbstractScreen <|-- GameScreen
+AbstractScreen <|-- SettingsScreen
+
+PopUp <|-- EndScreen
+PopUp <|-- PauseScreen
+
+
+PauseScreen ..> GameScreen : popup >
+EndScreen ..> GameScreen : popup >
+
+MenuScreen <--> GameScreen :  Changes to 
+MenuScreen <--> SettingsScreen : Changes to
+
+GameScreen *-- HUD
+GameScreen *-- Map
+GameScreen *-- Events
+</p>
+
+    <script src="./script.js"></script>  
+</body>
+</html>
 

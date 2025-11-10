@@ -191,6 +191,166 @@ GameScreen *-- Events
 
     </code>
     </pre>
+    <p>
+        Sequence Diagram
+    </p>
+    <pre>
+        <code>
+            actor User
+entity Start_Button #blue
+entity Pause_Button #red
+entity Game_Screen #486F38
+entity Pause_Screen #996F38
+entity End_Screen #995599
+
+control Timer
+
+entity Event
+
+group Game Start
+    User -> Start_Button : Clicks to start
+    Start_Button -[#blue]> Game_Screen : Generates maze
+    Start_Button -[#blue]> Timer : Requests Timer start
+    Timer -> Game_Screen : Starts Timer
+end
+
+group Game Loop [Loops until one Finished outcome occurs]
+    Game_Screen -> User : Requests input
+    User -> Game_Screen : Movement key
+    Game_Screen -> Game_Screen : Updates position
+    Game_Screen -> Event : Reaches Event
+    Event -> Game_Screen : Plays Event 
+    
+    group Game Paused
+        User -> Pause_Button : Clicks Pause
+        Pause_Button -[#red]> Timer : Requests Timer Stop
+        Timer -> Game_Screen : Stops Timer
+        Game_Screen -> Pause_Screen : Loads Pause Screen
+        end
+        
+    group Game Resumed
+        User -> Start_Button : Clicks Start
+        Start_Button -[#blue]> Timer : Requests Timer resumes
+        Timer -> Game_Screen : Resumes Timer
+        Game_Screen <- Pause_Screen : Loads Game Screen
+        end
+end
+
+group Game Finished
+    else Time Out
+        Timer -> Game_Screen : Timer reaches 0
+        Timer -> Timer : Timer Stops
+        Game_Screen -> End_Screen  : Game Finished
+        End_Screen -> End_Screen : Lose message loaded
+    else Game Won
+        Timer -> Timer : Timer Stops
+        Game_Screen -> End_Screen : Game Finished
+        End_Screen -> End_Screen : Win message loaded
+end
+@enduml
+
+        </code>
+    </pre>
+    <p> Events Sequence Diagram</p>
+    <pre>
+        <code>
+            @startUML
+            skinparam actorStyle awesome
+
+actor User
+
+entity Game_Screen #486F38
+entity Event
+entity Positive_Event #green
+entity Negative_Event #F50000
+entity Hidden_Event #orange
+
+User -> Game_Screen : Moves Square
+Game_Screen -> Event : Reaches Event
+
+group Positive Event [If User lands on the square]
+    Event -> Positive_Event : Requests Positive
+    Positive_Event -> Event : Returns Positive
+    Event -> Game_Screen : Displays Event
+    Game_Screen -> User : Requests Action from User
+    User -> Game_Screen : Completes Positive Action
+end
+
+group Negative Event
+    Event -> Negative_Event : Requests Negative
+    Negative_Event -> Event : Returns Negative
+    Event -> Game_Screen : Displays Event
+    Game_Screen -> User : Requests Action from User
+    User -> Game_Screen : Completes Negative Action
+end
+
+group Hidden Event
+    Event -> Hidden_Event : Requests Hidden
+    Hidden_Event -> Event : Returns Hidden
+    Event -> Game_Screen : Reveals Event
+    Event -> Game_Screen : Displays Event
+    Game_Screen -> User : Requests Action from User
+    User -> Game_Screen : Completes Hidden Action
+end
+@enduml
+
+        </code>
+    </pre>
+    <p>
+        State Diagram
+    </p>
+    <pre>
+        <code>
+            @startuml
+[*] --> s
+s --> n : Start Button pressed
+n --> p : Pause Button pressed
+p --> n : Start Button pressed
+
+state "Game Paused" as p
+state "Start" as s
+
+state "Game running" as n {
+    [*] --> NormalRuntime
+    NormalRuntime --> e : Event triggered
+    e --> NormalRuntime : Event resolved
+    NormalRuntime --> m : Movement keys pressed
+    m --> NormalRuntime : Movement resolved
+    
+    state "Event Resolver" as e {
+        e --> positive
+        e --> negative
+        e --> hidden
+    }
+    
+    state "Movement Resolver" as m {
+        m --> u
+        m --> d
+        m --> l
+        m --> r
+        
+        state "Up" as u
+        state "Down" as d
+        state "Left" as l
+        state "Right" as r
+    }
+}
+
+state f <<choice>>
+state q <<choice>>
+
+n --> f : Has User reached the end?
+f --> GameWon : Yes, Game is won
+f --> q : No, has the timer ran out?
+
+q --> GameLost : Yes, Game is lost
+q --> n : No, continue playing
+
+GameWon --> [*]
+GameLost --> [*]
+@enduml
+        </code>
+    </pre>
     <script src="./script.js"></script>  
 </body>
 </html>

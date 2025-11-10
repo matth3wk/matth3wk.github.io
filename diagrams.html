@@ -53,7 +53,9 @@
         </div>
       <h1>UML</h1>
     <p>Here is the UML for our project.</p>
-    <p>
+    <pre>
+    <code>
+@startuml
 Abstract class AbstractScreen
 Abstract class PopUp
 
@@ -86,8 +88,12 @@ MenuScreen <--> SettingsScreen : Changes to
 GameScreen *-- HUD
 GameScreen *-- Map
 GameScreen *-- Events
-</p>
-    <p>@startuml
+@enduml
+    </code>
+    </pre>
+    <pre>
+    <code>
+    @startuml
 Abstract class AbstractScreen {
     isActive : Boolean
     
@@ -178,8 +184,9 @@ GameScreen *-- Map
 GameScreen *-- Events
 
 @enduml
-</p>
 
+    </code>
+    </pre>
     <script src="./script.js"></script>  
 </body>
 </html>

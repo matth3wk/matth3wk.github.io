@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>Team 9 - CRC Cards</title>
+    <link rel="stylesheet" href="./style.css"/>
+
+    <style>
+        body {
+            padding: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap; /* Allows images to wrap to the next line on small screens */
+            gap: 20px; /* Adds space between the cards */
+            justify-content: center; /* Centers the cards */
+            padding-top: 20px;
+        }
+        .crc-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+            width: 300px; /* Each card will be 300px wide */
+        }
+        .crc-card img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #eee;
+        }
+        .back-link {
+            font-size: 1.1em;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">&larr; Back to Team 9 Home</a>
+
+    <h1>CRC Cards</h1>
+    <p>Here are the CRC (Class, Responsibility, Collaborator) cards for our project.</p>
+
+    <div class="gallery">
+
+        <div class="crc-card">
+            <h2>Player Class</h2>
+            <img src="images/player-crc.png" alt="CRC Card for the Player class">
+            <p>Handles player movement, inventory, and stats.</p>
+        </div>
+
+        <div class="crc-card">
+            <h2>Enemy Class</h2>
+            <img src="images/enemy-crc.png" alt="CRC Card for the Enemy class">
+            <p>Manages AI, combat, and pathfinding for opponents.</p>
+        </div>
+
+        <div class="crc-card">
+            <h2>GameMap Class</h2>
+            <img src="images/map-crc.png" alt="CRC Card for the GameMap class">
+            <p>Generates and stores the layout of the game world.</p>
+        </div>
+
+        </div>
+
+    <script src="./script.js"></script>  
+</body>
+</html>
